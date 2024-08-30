@@ -250,7 +250,7 @@ education institutions.
 ### Output (tampil_data_students.php)
 ![alt text](https://github.com/milaaulia21/PWEB2_TUGAS2/blob/main/Output/tampil_data_students.PNG?raw=true)
 
-### Output (tampil_data_achievements)
+### Output (tampil_data_achievements.php)
 ![alt text](https://github.com/milaaulia21/PWEB2_TUGAS2/blob/main/Output/tampil_data_achievements.PNG?raw=true)
 
 

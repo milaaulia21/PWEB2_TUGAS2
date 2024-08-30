@@ -1,7 +1,7 @@
 <?php
-include('koneksi.php');
-$data = new Students();
-$tampil = $data->tampil_data_students();
+include('koneksi.php'); // Menyertakan file koneksi.php untuk akses ke kelas dan koneksi database
+$data = new Students();  // Membuat objek dari kelas Students
+$tampil = $data->tampil_data_students(); // Mengambil data student menggunakan metode kelas Students
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,7 @@ $tampil = $data->tampil_data_students();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Students</title>
     <style>
+        /* CSS untuk tata letak halaman dan tabel */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -22,22 +23,22 @@ $tampil = $data->tampil_data_students();
             text-align: center;
         }
         table {
-            border-collapse: collapse;
-            width: 80%; /* Adjust width as needed */
-            max-width: 1200px; /* Optional: set a maximum width */
-            margin-top: 20px; /* Space between title and table */
+            border-collapse: collapse; 
+            width: 80%; /* Menentukan lebar tabel */
+            max-width: 1200px; /* Menentukan lebar maksimum tabel */
+            margin-top: 20px; /* Menambahkan jarak atas tabel */
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+            border: 1px solid #ddd; /* Menambahkan border pada sel tabel */
+            padding: 10px; /* Menambahkan padding pada sel tabel */
+            text-align: left; /* Menyelaraskan teks ke kiri */
         }
         th {
-            background-color: #f4f4f4;
-            font-weight: bold;
+            background-color: #f4f4f4; /* Menambahkan warna latar belakang pada header tabel */
+            font-weight: bold; /* Membuat teks header tabel tebal */
         }
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9; /* Menambahkan warna latar belakang bergantian pada baris tabel */
         }
         h1 {
             margin: 0;
@@ -59,8 +60,8 @@ $tampil = $data->tampil_data_students();
             <th>Signature</th>
         </tr>
         <?php 
-        $no = 1;
-        foreach($tampil as $row) {
+        $no = 1; // Inisialisasi nomor urut
+        foreach($tampil as $row) { // Mengiterasi array data student
             ?>
             <tr>
                 <td><?php echo $no++; ?></td>

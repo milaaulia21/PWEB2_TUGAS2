@@ -247,7 +247,8 @@ education institutions.
 - *Tampilan*: Data yang diperoleh ditampilkan dalam tabel HTML. CSS memastikan bahwa tabel ditata dengan baik dan responsif.
 
 
-### Output
+### Output (tampil_data_students.php)
+![alt text](?raw=true)
 
 
 

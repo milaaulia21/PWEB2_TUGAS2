@@ -1,7 +1,7 @@
 <?php 	
-include('koneksi.php');
-$data = new Achievements();
-$tampil = $data->tampil_data_achievements();
+include('koneksi.php'); // Menyertakan file koneksi.php untuk akses ke kelas dan koneksi database
+$data = new Achievements(); // Membuat objek dari kelas Achievements
+$tampil = $data->tampil_data_achievements(); // Mengambil data achievements menggunakan metode kelas Achievements
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,7 @@ $tampil = $data->tampil_data_achievements();
 </head>
 <body>
 <style>
+    /* CSS untuk tata letak halaman dan tabel */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -25,21 +26,21 @@ $tampil = $data->tampil_data_achievements();
         }
         table {
             border-collapse: collapse;
-            width: 80%; /* Adjust width as needed */
-            max-width: 1200px; /* Optional: set a maximum width */
-            margin-top: 20px; /* Space between title and table */
+            width: 80%; /* Menentukan lebar tabel */
+            max-width: 1200px; /* Menentukan lebar maksimum tabel */
+            margin-top: 20px;  /* Menambahkan jarak atas tabel */
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+            border: 1px solid #ddd; /* Menambahkan border pada sel tabel */
+            padding: 10px; /* Menambahkan padding pada sel tabel */
+            text-align: left; /* Menyelaraskan teks ke kiri */
         }
         th {
-            background-color: #f4f4f4;
-            font-weight: bold;
+            background-color: #f4f4f4;  /* Menambahkan warna latar belakang pada header tabel */
+            font-weight: bold; /* Membuat teks header tabel tebal */
         }
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #f9f9f9; /* Menambahkan warna latar belakang bergantian pada baris tabel */
         }
         h1 {
             margin: 0;
@@ -55,7 +56,7 @@ $tampil = $data->tampil_data_achievements();
             <th>Level</th>
         </tr>
         <?php
-        $no = 1;
+        $no = 1; // Inisialisasi nomor urut
         foreach($tampil as $row) {
             ?>
             <tr>

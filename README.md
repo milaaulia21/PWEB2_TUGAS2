@@ -7,6 +7,7 @@ managing student performance, counseling, and other academic data for higher
 education institutions.
 
 ## ERD
+![alt text](https://github.com/milaaulia21/PWEB2_TUGAS2/blob/main/Output/ERD.png?raw=true)
 
 ## Case Study
 - NPM 5,6: students & achievements 

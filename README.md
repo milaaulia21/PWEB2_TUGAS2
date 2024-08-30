@@ -20,26 +20,24 @@ education institutions.
 
 ## Hasil 
 
-### 1. Koneksi Database dan Kelas Dasar
-
-#### Code (koneksi.php)
-  <?php
-  class Database {
-      private $host = "localhost";
-      private $username = "root";
-      private $password = "";
-      private $database = "pweb2_tugas2";
-      protected $koneksi = "";
-  
-      function __construct() 
-      {
-         $this->koneksi = mysqli_connect($this->host, $this->username, $this->password, $this->database);
-         if (mysqli_connect_errno()) {
-          echo "Koneksi database gagal : " . mysqli_connect_error();
-         }
-      }
-  }
-  ?>
+### Code (koneksi.php)
+    <?php
+    class Database {
+        private $host = "localhost";
+        private $username = "root";
+        private $password = "";
+        private $database = "pweb2_tugas2";
+        protected $koneksi = "";
+    
+        function __construct() 
+        {
+           $this->koneksi = mysqli_connect($this->host, $this->username, $this->password, $this->database);
+           if (mysqli_connect_errno()) {
+            echo "Koneksi database gagal : " . mysqli_connect_error();
+           }
+        }
+    }
+    ?>
 
 #### Penjelasan 
 - *Kelas Database*: Kelas ini bertanggung jawab untuk mengatur koneksi ke database.
@@ -47,34 +45,32 @@ education institutions.
 - **Constructor**: Metode `__construct()` secara otomatis dipanggil saat objek dibuat. Metode ini menginisialisasi koneksi database menggunakan `mysqli_connect()`. Jika koneksi gagal, pesan kesalahan ditampilkan.
 
 
-### 2. Kelas Turunan 
-
-#### Code (koneksi.php)
-<?php
-class Students extends Database {
-
-    function tampil_data_students(){
-        $query = "SELECT * FROM student";
-        $data = mysqli_query($this->koneksi, $query);
-        while($row = mysqli_fetch_array($data)){
-            $hasil[] = $row;
-        }
-        return $hasil;
-    }
-}
-
-class Achievements extends Database {
+### Code (koneksi.php)
+    <?php
+    class Students extends Database {
     
-    function tampil_data_achievements(){
-        $query = "SELECT * FROM achievements";
-        $data = mysqli_query($this->koneksi, $query);
-        while($row = mysqli_fetch_array($data)){
-            $hasil[] = $row;
+        function tampil_data_students(){
+            $query = "SELECT * FROM student";
+            $data = mysqli_query($this->koneksi, $query);
+            while($row = mysqli_fetch_array($data)){
+                $hasil[] = $row;
+            }
+            return $hasil;
         }
-        return $hasil;
     }
-}
-?>
+    
+    class Achievements extends Database {
+        
+        function tampil_data_achievements(){
+            $query = "SELECT * FROM achievements";
+            $data = mysqli_query($this->koneksi, $query);
+            while($row = mysqli_fetch_array($data)){
+                $hasil[] = $row;
+            }
+            return $hasil;
+        }
+    }
+    ?>
 
 #### Penjelasan
 - *Pewarisan (Inheritance)*: 
@@ -84,6 +80,174 @@ class Achievements extends Database {
 - *Polimorfisme*:
   - Meskipun tidak secara eksplisit digunakan dalam kode ini, jika ada metode dengan nama yang sama di kelas yang berbeda yang memiliki perilaku berbeda, ini akan menjadi contoh polimorfisme.
 
+### Code (tampl_students.php)
+    <?php
+    include('koneksi.php');
+    $data = new Students();
+    $tampil = $data->tampil_data_students();
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Students</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 50vh;
+                text-align: center;
+            }
+            table {
+                border-collapse: collapse;
+                width: 80%;
+                max-width: 1200px;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            h1 {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Data Students</h1>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>ID Class</th>
+                <th>Student Number</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>ID User</th>
+                <th>Signature</th>
+            </tr>
+            <?php 
+            $no = 1;
+            foreach($tampil as $row) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo htmlspecialchars($row['id_class']); ?></td>
+                    <td><?php echo htmlspecialchars($row['student_number']); ?></td>
+                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['phone_number']); ?></td>
+                    <td><?php echo htmlspecialchars($row['address']); ?></td>
+                    <td><?php echo htmlspecialchars($row['id_user']); ?></td>
+                    <td><?php echo htmlspecialchars($row['signature']); ?></td>
+                </tr>
+                <?php 
+            }
+            ?>
+        </table>
+    </body>
+    </html>
+
+#### Penjelasan
+- *Instansiasi Kelas*: Objek `Students` dibuat dan metode `tampil_data_students()` dipanggil untuk mendapatkan data.
+- *Tampilan*: Data yang diperoleh ditampilkan dalam tabel HTML. CSS digunakan untuk memastikan tabel dan konten ditata dengan baik.
+- *Enkapsulasi dan Abstraksi*: Detail implementasi koneksi database dan pengambilan data disembunyikan dalam kelas `Students` dan `Achievements`. Pengguna hanya berinteraksi dengan metode `tampil_data_students()` dan `tampil_data_achievements()`.
+
+
+### Code (tampil_achievements.php)
+    <?php
+    include('koneksi.php');
+    $data = new Achievements();
+    $tampil = $data->tampil_data_achievements();
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Achievements</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 50vh;
+                text-align: center;
+            }
+            table {
+                border-collapse: collapse;
+                width: 80%;
+                max-width: 1200px;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+            th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            h1 {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Data Achievements</h1>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>ID Student</th>
+                <th>Achievement Type</th>
+                <th>Level</th>
+            </tr>
+            <?php
+            $no = 1;
+            foreach($tampil as $row) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo htmlspecialchars($row['id_student']); ?></td>
+                    <td><?php echo htmlspecialchars($row['achievement_type']); ?></td>
+                    <td><?php echo htmlspecialchars($row['level']); ?></td>
+                </tr>
+                <?php
+            }
+            ?>
+        </table>
+    </body>
+    </html>
+
+#### Penjelasan 
+- *Instansiasi Kelas*: Objek `Achievements` dibuat dan metode `tampil_data_achievements()` dipanggil untuk mendapatkan data.
+- *Tampilan*: Data yang diperoleh ditampilkan dalam tabel HTML. CSS memastikan bahwa tabel ditata dengan baik dan responsif.
+
+
+### Output
 
 
 
